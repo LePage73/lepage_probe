@@ -9,15 +9,15 @@ not_primes = []
 for i in list(range(len(numbers))) : # расставляем флаги
     is_prime.append(True) # изначально считаем простым пока дальше не докажем обратное
     if numbers[i] == 1 : # 1 - ни то, ни сё
-        is_prime[i]=False
+        is_prime[i] = False
         continue
     if numbers[i] % 2 == 0 and numbers[i] != 2: # четное но не 2
-        is_prime[i]=False
+        is_prime[i] = False
         continue
     else :
         for j in list(range(2, numbers[i])) : # проверяем делится ли на все предыдущие начиная с 2
             if numbers[i] % j == 0 : # если делится на предыдущее ставим флаг
-                is_prime[i]=False
+                is_prime[i] = False
                 break
 for i in list(range(len(numbers))) : # разносим по спискам  зависимости от флага
     if numbers[i] == 1 : continue
