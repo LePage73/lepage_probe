@@ -16,5 +16,10 @@ while True:
     else: break
 
 pairs = get_pair(m)
-print(*pairs)
+text_pairs = str(pairs)
+text_pairs = text_pairs.replace(', ','')
+text_pairs = text_pairs.replace('[','')
+text_pairs = text_pairs.replace(']','')
 
+print('пары ', *pairs)
+print('Пароль ', text_pairs)
