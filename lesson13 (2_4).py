@@ -15,7 +15,7 @@ for i in list(range(len(numbers))) : # расставляем флаги
         is_prime[i]=False
         continue
     else :
-        for j in list(range(2, numbers[i])) : # проверяем делится ли на все предыдущие начиная с 3 (на 2 уже проверили)
+        for j in list(range(2, numbers[i])) : # проверяем делится ли на все предыдущие начиная с 2
             if numbers[i] % j == 0 : # если делится на предыдущее ставим флаг
                 is_prime[i]=False
                 break
