@@ -1,6 +1,5 @@
 # Домашняя работа по уроку "Пространство имён"
 calls = 0
-
 def count_calls():
     global calls
     calls += 1
