@@ -1,5 +1,5 @@
 # Домашняя работа по уроку "Способы вызова функции"
-domen = tuple(['.com', '.ru', '.net']) # список разрешенных доменов
+domen = ('.com', '.ru', '.net') # "список"/кортеж разрешенных доменов
 
 def send_email(message, to_, from_ = 'lepage@simbirsk.ru'):
     global domen
@@ -26,3 +26,5 @@ send_email('Это сообщение для проверки связи', 'vasy
 send_email('Вы видите это сообщение как лучший студент курса!', 'urban.fan@mail.ru', from_='urban.info@gmail.com')
 send_email('Пожалуйста, исправьте задание', 'urban.student@mail.su', from_='lepage@simbirsk.su')
 send_email('Напоминаю самому себе о вебинаре', 'lepage@simbirsk.ru', from_='lepage@simbirsk.ru')
+
+print('Разрешено высылать письма на:', domen)
