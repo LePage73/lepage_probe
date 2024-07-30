@@ -44,3 +44,4 @@ def any_counter(*data_structure, len_=0):
 
 print(data_structure)
 print('result ', any_counter(data_structure))
+## P.S. Хотя проще было превратить data_structure в строку, повыбрасывать все лишние символы и разобрать в цикле
