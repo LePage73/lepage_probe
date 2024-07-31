@@ -2,7 +2,6 @@
 class Animal:
     alive = True
     fed = False
-    name = ''
     def __init__(self,name):
         self.name = name
     def eat(self, food):
@@ -17,7 +16,6 @@ class Animal:
 
 class Plant:
     edible = False
-    name = ''
     def __init__(self,name):
         self.name = name
 
