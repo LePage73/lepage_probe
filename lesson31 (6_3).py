@@ -1,24 +1,25 @@
 #Домашнее задание по теме "Множественное наследование"
 
 class Horse:
-    x_distance = 0
-    sound = ''
     def __init__(self):
         self.x_distance = 0
-        self.sound = 'Frrrrr - потому, что я левее в mro()'
+        self.sound = 'Frrrrr - потому, что я левее в mro(), но есть одно но, оно ниже'
+        super().__init__()
     def run(self, dx):
         self.x_distance += dx
 
 class Eagle:
-    y_distance = 0
-    sound = ''
     def __init__(self):
         self.y_distance = 0
         self.sound = 'I train, eat, sleep, and repeat'
+        super().__init__() # для возможности обмена порядка родителей
     def fly(self, dy):
         self.y_distance += dy
 
 class Pegasus(Horse, Eagle):
+    def __init__(self):
+        super().__init__()
+
     def move(self, dx, dy):
         self.fly(dy)
         self.run(dx)
