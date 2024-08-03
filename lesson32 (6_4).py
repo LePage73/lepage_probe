@@ -125,7 +125,7 @@ class Cube(Figure):
             self.set_sides(*side_)
         self.set_sides(*side_)
 
-    def is_valid_sides(self,*args):
+    def is_valid_sides(self,*args): #
         if len(args) != 1: return False
         if int(args[0]) < 0 or not isinstance(args[0], int): return False
         return True
