@@ -1,75 +1,67 @@
-# Дополнительное практическое задание по модулю: "Наследование классов."
 from math import sqrt
 class Figure:
-    sides_count = 0
+    sides_count = 3
     name = ''
-    def __init__(self, *args):
-        self.__color = [255, 255, 255]
+    def __init__(self,*args):
         self.__sides = []
+        self.__color = []
         self.filled = False
-        args = list(args)
-        if isinstance(args[-1],bool):
-            self.filled = args.pop()
-        args.reverse()
-        color_ = list(args.pop())
-        if self.__is_valid_color(color_[0],color_[1],color_[2]):
-            self.set_color(color_[0],color_[1],color_[2])
-        if self.__is_valid_sides(*args):
-            self.set_sides(*args)
+        if isinstance(args[0], tuple):# проверяем правильно ли заполнены данные - первый элемент - кортеж RGB
+            self.set_color(*args[0])# пытаемся установить цвет
+        if isinstance(args[-1], bool): # проеряем последний элемент если bool то это заливка
+            self.filled = args[-1]
+            side_ = args[1:-1]
+            self.set_sides(*side_)# оставшимся набором пытаемся заполнить стороны
+
         else:
-            for i in range(0,self.sides_count):
-                self.__sides.append(1)
+            side_ = args[1:]
+            self.set_sides(*side_)#
+        self.__side_init_if_necessary()# проверяем заполнились ли стороны, если нет заполняем 1
+        pass
+    def __is_valid_color(self,*args):
+        if len(args) != 3: return False
+        if 0 > int(args[0]) or int(args[0]) > 255 or not isinstance(args[0],int): return False
+        if 0 > int(args[1]) or int(args[1]) > 255 or not isinstance(args[1],int): return False
+        if 0 > int(args[2]) or int(args[2]) > 255 or not isinstance(args[2],int): return False
 
-
+        return True
+    def set_color(self,*args):
+        if self.__is_valid_color(*args):
+            self.__color = []
+            self.__color.insert(0,args[0])
+            self.__color.insert(1,args[1])
+            self.__color.insert(2,args[2])
+        return
     def get_color(self):
         return self.__color
-
-    def __is_valid_color(self, r, g, b):
-        if 0 > r or r > 255:
-            return False
-        if 0 > g or g > 255:
-            return False
-        if 0 > b or b > 255:
-            return False
+    def is_valid_sides(self,*args):
+        if len(args) != self.sides_count: return False
+        for side_ in args:
+            if int(side_) < 0 or not isinstance(side_, int): return False
         return True
-
-    def set_color(self, r, g, b):
-        if self.__is_valid_color(r, g, b):
-            self.__color = [r, g, b]
-
-    def __is_valid_sides(self, *sides):
-        sides = list(sides)
-        if len(sides) == self.sides_count:
-            valid_side_ = True
-            for side in sides:
-                if side < 0 or not isinstance(side,int):
-                    valid_side_ = False
-            return valid_side_
-        return False
-    def set_sides(self, *new_sides):
-        if self.__is_valid_sides(*new_sides):
-            self.__sides = list(new_sides)
+    def set_sides(self,*args):
+        if self.is_valid_sides(*args):
+            self.__sides = []
+            for side_ in args:
+                self.__sides.append(side_)
         return
-
     def get_sides(self):
         return self.__sides
-
     def __len__(self):
-        perimetr_ = 0
-        for side in self.__sides:
-            perimetr_ += side
-        return perimetr_
-
-
+        return sum(self.__sides)
+    def __side_init_if_necessary(self):
+        if not self.__sides:
+            for i in range(0, self.sides_count):
+                self.__sides.append(1)
+        return
     def print_info(self):
-        print('\nНазвание: ', self.name)
-        print('Цвет: ', self.get_color())
-        print('Длины сторон:',self.get_sides())
-        print('Сумма длин сторон:', self.__len__())
-        if self.filled:
-            print('Есть заливка')
-        else:
-            print('Прозрачная фигура')
+        print('\nИмя фигуры: ',self.name)
+        print('Цвет фигуры: ',self.get_color())
+        print('Список сторон: ',self.get_sides())
+        print('Сумма длин сторон: ',self.__len__())
+        if self.filled: print('Закрашена')
+        else: print('Не закрашена')
+        pass
 
 class Circle(Figure):
     sides_count = 1
@@ -94,8 +86,7 @@ class Triangle(Figure):
         self.name = 'Треугольник'
         pass
     def get_height(self):
-        print(self.get_sides())
-        a = self.get_sides()[0] # Используем формулу Герона - расчитаем высоту по основанию а
+        a = self.get_sides()[0] # Используем формулу Герона - расcчитаем высоту по основанию а
         b = self.get_sides()[1]
         c = self.get_sides()[2]
         s = self.__len__() /2
@@ -112,41 +103,47 @@ class Triangle(Figure):
         super().print_info()
         print('Площадь: ', self.get_square())
         print('Высота треугольника:', self.__height)
-
+        pass
 
 
 class Cube(Figure):
     sides_count = 12
 
-    def __init__(self,*args):
-        self.__sides = []
+    def __init__(self, *args):
         super().__init__(*args)
-        args = list(args)
-        args.pop()
-        args.reverse()
-        args.pop()
-        if len(args) == 1 and isinstance(args[0],int):
+        self.__sides = []
+        self.__load_sides(*args)
+        self.__side_init_if_necessary()
+        self.name= 'Куб'
+        pass
+    def __load_sides(self,*args):
+        if isinstance(args[-1],bool):
+            side_ = args[1:-1]
+            self.set_sides(*side_)
+        else:
+            side_ = args[1:]
+            self.set_sides(*side_)
+        self.set_sides(*side_)
+
+    def is_valid_sides(self,*args):
+        if len(args) != 1: return False
+        if int(args[0]) < 0 or not isinstance(args[0], int): return False
+        return True
+    def set_sides(self,*args):
+        if self.is_valid_sides(*args):
+            self.__sides = []
             for i in range(0, self.sides_count):
                 self.__sides.append(args[0])
-        else:
-            for i in range(0, self.sides_count):
-                self.__sides.append(1)
-
-        self.name = 'Куб'
-        pass
-    def __is_valid_sides(self, sides):
-        if len(sides) == 1:
-            valid_side_ = True
-            if sides[0] < 0 or not isinstance(sides[0],int):
-                valid_side_ = False
-            return valid_side_
-        return False
-    def set_sides(self, *new_sides):
-        if self.__is_valid_sides(list(new_sides)):
-            self.__sides = new_sides
         return
     def get_sides(self):
         return self.__sides
+    def __side_init_if_necessary(self):
+        if not self.__sides:
+            for i in range(0, self.sides_count):
+                self.__sides.append(1)
+        return
+    def __len__(self):
+        return sum(self.__sides)
     def get_volume(self):
         return self.get_sides()[0]**3
     def print_info(self):
@@ -156,26 +153,42 @@ class Cube(Figure):
 
 
 
+# мои проверки фигура
+curve = Figure((22,22,22),1,2)
+print(curve.get_sides())
+print(curve.get_color())
+curve.set_color(333,333,333)
+print(curve.get_color())
+curve.set_color(200,200,200)
+print(curve.get_color())
+curve.set_sides(3,2,1)
+print(curve.get_sides())
+curve.set_sides(3,2.5,1)
+print(curve.get_sides())
+curve.set_sides(3,2,1,4)
+print(curve.get_sides())
+print(curve.__len__())
 
-# мои проверки
-print(dir(Circle))
+# окружность
 curve = Circle((100,200,300),6.28,True)
 curve.print_info()
 curve2 = Circle((100,200,210),7,True)
 curve2.print_info()
 curve3 = Circle((100,200,210),7,5,True)
 curve3.print_info()
-
+#треугольник
 tre = Triangle((222,222,222),5,6,7,True)
-print(tre.get_sides())
 tre.print_info()
-tre2 = Triangle((111,111,111),1,2,3)
-print(tre2.get_sides())
+tre2 = Triangle((111,111,111),1,2,3,4)
 tre2.print_info()
+# куб
+print(dir(Cube))
+cubik = Cube((12,12,12),7,True)
 
-cubik = Cube((12,12,12),5,True)
+print(dir(cubik))
 cubik.print_info()
-cubik2 = Cube((15,15,15),5,7,False)
+
+cubik2 = Cube((44,55,66),7,5,9)
 cubik2.print_info()
 
 print('########################## проверка по заданию')
