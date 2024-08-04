@@ -1,3 +1,4 @@
+# Домашнее задание по теме "Позиционирование в файле"
 def custom_write(file_name,*strings):
     file = open(file_name,"w",encoding='utf-8')
     str_num = 0
