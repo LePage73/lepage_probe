@@ -34,7 +34,7 @@ class Shop():
         pass
     def add(self, *args):
         for product_ in args:
-            if str(product_) in self.get_products():
+            if str(product_.name) in self.get_products():
                 print(f'Продукт {product_.name} уже есть в магазине')
             else:
                 self.__open_file_for__app()
@@ -44,7 +44,7 @@ class Shop():
 pass
 
 s1 = Shop()
-s1.add(Product('Potato', 50.5, 'Vegetables'))
+#s1.add(Product('Potato', 50.5, 'Vegetables'))
 p1 = Product('Potato', 50.5, 'Vegetables')
 p2 = Product('Spaghetti', 3.4, 'Groceries')
 p3 = Product('Potato', 5.5, 'Vegetables')
