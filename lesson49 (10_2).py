@@ -31,12 +31,16 @@ class Terminator(Thread):
 thread = []
 terminator1 = Terminator('Sara Connor', 10)
 terminator2 = Terminator('Kyle Reese', 20)
+terminator3 = Terminator('John Connor', 15)
 
 # while terminator1.war_continue or terminator2.war_continue:
 terminator1.start()
 terminator2.start()
+terminator3.start()
+
 terminator1.join()
 terminator2.join()
+terminator3.join()
 
 print('Все битвы закончились!')
 
