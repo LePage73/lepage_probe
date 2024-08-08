@@ -29,7 +29,7 @@ class Terminator(Thread):
 
 
 thread = []
-terminator1 = Terminator('Sara Connor', 10)
+terminator1 = Terminator('Sarah Connor', 10)
 terminator2 = Terminator('Kyle Reese', 20)
 terminator3 = Terminator('John Connor', 15)
 
