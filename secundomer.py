@@ -14,3 +14,5 @@ class Timer():
         return str(self.stop_time - self.start_time)
     def current_time(self):
         return str(datetime.now() - self.start_time)
+    def print_curr_time(self):
+        print(f'Таймер {self.name}, с момента старта прошло:{self.current_time()})
