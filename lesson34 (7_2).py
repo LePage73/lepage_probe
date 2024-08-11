@@ -1,12 +1,15 @@
 # Домашнее задание по теме "Позиционирование в файле"
-def custom_write(file_name,*strings):
-    file = open(file_name,"w",encoding='utf-8')
+
+def custom_write(file_name, *strings):
+    file = open(file_name, "w", encoding='utf-8')
     str_num = 0
     dict_ = {}
     for str_ in strings[0]:
-        file.write(str(str_ + '\n'))
         str_num += 1
-        dict_.update({(str_num,file.tell()): str_})
+        dict_.update({(str_num, file.tell()): str_})
+        file.write(str(str_ + '\n'))
+
+
     file.close()
     return dict_
 
