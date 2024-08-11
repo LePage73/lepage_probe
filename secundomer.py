@@ -1,6 +1,6 @@
 #  Секундомер, для дальнейшей работы понадобится
 from datetime import datetime
-class Timer():
+class Timer:
     def __init__(self, name):
         self.name = name
         self.start_time = 0
@@ -15,4 +15,4 @@ class Timer():
     def current_time(self):
         return str(datetime.now() - self.start_time)
     def print_curr_time(self):
-        print(f'Таймер {self.name}, с момента старта прошло:{self.current_time()})
+        print(f'Таймер {self.name}, с момента старта прошло:{self.current_time()} ')
