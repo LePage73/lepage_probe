@@ -1,4 +1,4 @@
-#  Секундомер, для далнейшей работы понадобится
+#  Секундомер, для дальнейшей работы понадобится
 from datetime import datetime
 class Timer():
     def __init__(self, name):
