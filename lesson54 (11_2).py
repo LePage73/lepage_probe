@@ -3,22 +3,6 @@
 from pprint import pprint
 import secundomer
 
-# Объекты для проверки
-#####################################################################
-a = 42
-b = {}
-c = []
-d = ()
-
-timer_ = secundomer.Timer('test')
-
-def some_func():
-    pass
-class some_class:
-    def some_method(self):
-        # return
-        pass
-#####################################################################
 
 
 def introspection_info(obj):
@@ -41,6 +25,24 @@ def introspection_info(obj):
 
     return dict_
 
+
+
+# Объекты для проверки
+#####################################################################
+a = 42
+b = {}
+c = []
+d = ()
+
+timer_ = secundomer.Timer('test')
+
+def some_func():
+    pass
+class some_class:
+    def some_method(self):
+        # return
+        pass
+#####################################################################
 obj = timer_
 number_info = introspection_info(obj)
 pprint(number_info)
