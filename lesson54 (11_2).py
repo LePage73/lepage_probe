@@ -3,8 +3,6 @@
 from pprint import pprint
 import secundomer
 
-
-
 def introspection_info(obj):
     dict_ = {}
     # Определяем тип
