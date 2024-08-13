@@ -1,9 +1,10 @@
 # Домашнее задание по теме "Логирование"
 
 import logging
-## настройку журнала делаем до импорта остальных библиотек тогда файл создается
+## настройку журнала делаем до импорта остальных библиотек тогда файл лога создается
 ## ссылка - https://translated.turbopages.org/proxy_u/en-ru.ru.712817ad-66bb3cbc-67f85341-74722d776562/https
 # /stackoverflow.com/questions/20240464/python-logging-file-is-not-working-when-using-logging-basicconfig
+
 logging.basicConfig(level=logging.INFO, filemode="w", filename="log_test_12_4.log",
                         encoding="utf-8", format="%(levelname)s :< %(asctime)s >: %(message)s \n-------")
 
