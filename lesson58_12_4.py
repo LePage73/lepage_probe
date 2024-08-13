@@ -98,17 +98,6 @@ class RunnerTest(unittest.TestCase):
 ##########################################################################################
 
 if __name__ == '__main__':
-
-
-
-    print('test', 3 / 0)
-
-    # logging.debug("A DEBUG Message")
-    # logging.info("An INFO")
-    # logging.warning("A WARNING")
-    # logging.error("An ERROR")
-    # logging.critical("A message of CRITICAL severity")
-
-    # unittest.main()
+    unittest.main()
 
 
