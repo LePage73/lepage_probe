@@ -8,7 +8,8 @@ def introspection_info(obj):
     # Определяем тип
     dict_.update({'1_Тип': type(obj)})
     # Находим все аттрибуты
-    dict_.update({'2_Атрибуты': dir(obj)})
+    list_attr = [attr for attr in dir(obj) if not callable(getattr(obj, attr))]
+    dict_.update({'2_Атрибуты': list_attr})
     # находим все методы
     list_method = [attr for attr in dir(obj) if callable(getattr(obj, attr)) and attr.startswith('__') is False]
     dict_.update({'3_Методы': list_method})
@@ -41,7 +42,8 @@ class some_class:
         # return
         pass
 #####################################################################
-obj = timer_
+
+obj = 42
 number_info = introspection_info(obj)
 pprint(number_info)
 
