@@ -18,7 +18,7 @@ import asyncio
 ###### импортируем свои ############################################################################
 import crud_functions as crud
 
-api = "7286687702:AAEhBOCaxfd_0P3ubdbMRk7cOsIVGRyXsLo" # здесь ключ API Вашего бота
+api = "**********************************************" # здесь ключ API Вашего бота
 bot = Bot(token=api)
 dp = Dispatcher(storage=MemoryStorage()) # в качестве базы данных для машины состояний ипользуем опер. память
 
