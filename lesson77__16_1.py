@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 
+#  создаем приложение
 app = FastAPI()
 
+
+# писываем маршруты
 @app.get('/')
 async def welcome():
     return 'Главная страница'
