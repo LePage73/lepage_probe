@@ -18,7 +18,7 @@ import asyncio
 ###### импортируем свои ############################################################################
 import crud_functions as crud
 
-api = "**********************************************" # здесь ключ API Вашего бота
+api = "******************************************************" # здесь ключ API Вашего бота
 bot = Bot(token=api)
 dp = Dispatcher(storage=MemoryStorage()) # в качестве базы данных для машины состояний ипользуем опер. память
 
@@ -92,7 +92,7 @@ async def get_formulas(call):
 @dp.message(F.text == 'Информация')
 async def info(message: types.Message, state: FSMContext):
     await state.clear()
-    kb = kb_('Рассчитать', 'Информация', input_placeholder='Рассчитать?')
+    kb = kb_('Рассчитать', 'Информация', 'Регистрация', 'Купить', input_placeholder='Рассчитать?')
     await message.answer("Привет! Я тестовый бот помогающий твоему здоровью\n "
                          "Я могу рассчитать количество калорий для Вас", reply_markup=kb)
 
@@ -178,21 +178,25 @@ async def set_username(message: types.Message, state: FSMContext):
         await message.answer('Такой пользователь существует!\nВведите другое имя')
         await state.set_state(RegistrationState.username)
     else:
-        RegistrationState.username = str(message.text)
+        # RegistrationState.username = str(message.text) # было
+        await state.update_data(username=str(message.text))
         await message.answer('Введите свой E-mail')
         await state.set_state(RegistrationState.email)
 @dp.message(F.text, RegistrationState.email)
 async def set_email(message: types.Message, state: FSMContext):
     print('E-mail')
-    RegistrationState.email = message.text
+    # RegistrationState.email = message.text # было
+    await state.update_data(email=str(message.text))
     await message.answer('Укажите свой возраст')
     await state.set_state(RegistrationState.age)
 
 @dp.message(F.text, RegistrationState.age)
 async def set_age(message: types.Message, state: FSMContext):
     print('Age')
-    RegistrationState.age = message.text
-    crud.add_user(RegistrationState.username,RegistrationState.email,RegistrationState.age)
+    # RegistrationState.age = message.text # было
+    await state.update_data(age=str(message.text))
+    user_data = await state.get_data()
+    crud.add_user(user_data['username'], user_data['email'], user_data['age'])
     await message.answer('Регистрация прошла успешно')
     await state.clear()
 
